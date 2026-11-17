@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nisab — Your next step in halal wealth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ivory:#F5EFE6; --paper:#FBF7F0; --ink:#1C1A17; --muted:#6A6257; --emerald:#0F3B2E; --emerald-2:#164D3D;
+  --gold:#B08D57; --gold-soft:rgba(176,141,87,.35); --line:rgba(28,26,23,.12);
+  --serif:'Times New Roman',Times,serif; --sans:'Inter',system-ui,sans-serif;
+  --radius:14px; --tab-h:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+a{color:inherit}
+em{font-style:italic}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--muted)}
+.gold{color:var(--gold)}
+.serif{font-family:var(--serif);font-weight:400}
+.hair{height:1px;background:var(--gold-soft);border:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:var(--emerald);color:var(--ivory);font-weight:500;font-size:15px;border-radius:999px;text-decoration:none;transition:background .2s,transform .15s}
+.btn:hover{background:var(--emerald-2)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--emerald);border:1px solid var(--emerald)}
+.btn.light{background:var(--ivory);color:var(--emerald)}
+.btn.full{width:100%}
+.link{display:inline-flex;align-items:center;gap:6px;font-weight:500;color:var(--emerald);text-decoration:none;border-bottom:1px solid var(--gold-soft);padding-bottom:2px;min-height:32px}
+.arrow{display:inline-block;transition:transform .2s}
+a:hover .arrow,button:hover .arrow{transform:translateX(3px)}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:14px;transition:all .15s}
+.chip.on{background:var(--emerald);color:var(--ivory);border-color:var(--emerald)}
+.tag{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.note{font-size:12px;color:var(--muted)}
+.sample{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--gold-soft);color:var(--gold);padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.term{border-bottom:1px dashed var(--gold);cursor:help}
+.view{display:none}
+.view.active{display:block;animation:fade .22s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* lattice texture */
+.lattice{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='0.8' opacity='0.55'%3E%3Cpath d='M40 4 L52 28 L76 40 L52 52 L40 76 L28 52 L4 40 L28 28 Z'/%3E%3Crect x='22' y='22' width='36' height='36' transform='rotate(45 40 40)'/%3E%3Ccircle cx='40' cy='40' r='9'/%3E%3C/g%3E%3C/svg%3E");}
+
+/* ===== LANDING ===== */
+.site-header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.wordmark{font-family:var(--serif);font-size:26px;letter-spacing:-.01em;text-decoration:none;display:inline-flex;align-items:center}
+.brand-arch{margin-right:10px;width:16px;height:22px;border:1.5px solid var(--gold);border-radius:999px 999px 2px 2px;display:inline-block}
+.site-nav{display:flex;gap:28px;align-items:center}
+.site-nav a{text-decoration:none;font-size:14px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:40px 0 56px}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(52px,8vw,104px);line-height:.98;letter-spacing:-.025em;margin:22px 0 26px}
+.hero h1 em{color:var(--emerald)}
+.hero p.lede{font-size:18px;color:var(--muted);max-width:430px;margin-bottom:34px}
+.hero-actions{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.arch-frame{position:relative;aspect-ratio:2/3;max-height:600px;width:100%;border-radius:999px 999px 6px 6px;overflow:hidden;background:radial-gradient(ellipse at 50% 18%,#F6DFB3 0%,#D9B27A 28%,#7A5A35 62%,#2B2116 100%);animation:open 1.4s cubic-bezier(.2,.7,.2,1) both}
+.arch-frame::before{content:"";position:absolute;inset:0;background-size:64px 64px;opacity:.9;mix-blend-mode:multiply}
+.arch-frame .rays{position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,240,210,.55) 0%,transparent 45%),linear-gradient(200deg,rgba(255,240,210,.35) 0%,transparent 40%)}
+.arch-frame .inner-arch{position:absolute;left:22%;right:22%;bottom:0;height:56%;border-radius:999px 999px 0 0;border:1px solid rgba(245,239,230,.55);background:linear-gradient(to top,rgba(15,59,46,.55),rgba(15,59,46,0))}
+@keyframes open{from{clip-path:inset(8% 18% 0 18% round 999px 999px 6px 6px);opacity:.4}to{clip-path:inset(0 0 0 0 round 999px 999px 6px 6px);opacity:1}}
+.caption{display:block;margin-top:14px;font-family:var(--serif);font-style:italic;color:var(--muted);font-size:14px;text-align:center}
+.hero-bottom{display:flex;justify-content:space-between;padding:18px 0;border-top:1px solid var(--gold-soft)}
+.manifesto{padding:120px 0;text-align:center;max-width:860px;margin:0 auto}
+.manifesto blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.6vw,44px);line-height:1.22;letter-spacing:-.01em;margin:26px 0}
+.manifesto blockquote em{color:var(--emerald)}
+.section-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.section-title{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,56px);letter-spacing:-.02em;line-height:1.05;margin-top:12px}
+.aside{font-family:var(--serif);font-style:italic;color:var(--muted);text-align:right}
+.rows{border-top:1px solid var(--gold-soft)}
+.row{display:grid;grid-template-columns:72px 1fr auto 28px;align-items:center;gap:18px;width:100%;text-align:left;padding:24px 4px;border-bottom:1px solid var(--gold-soft);transition:background .2s}
+.row:hover{background:rgba(176,141,87,.07)}
+.row .num{font-family:var(--serif);font-size:34px;color:var(--gold);font-weight:300}
+.row .label{font-family:var(--serif);font-size:clamp(20px,2.4vw,28px);font-weight:400}
+.row .resp{font-family:var(--serif);font-style:italic;color:var(--emerald);opacity:0;transform:translateX(12px);transition:all .3s;font-size:16px}
+.row:hover .resp{opacity:1;transform:none}
+.band{background:var(--emerald);color:var(--ivory);padding:110px 0;margin-top:120px;position:relative;overflow:hidden}
+.band::before{content:"";position:absolute;inset:0;opacity:.12;background-size:80px 80px}
+.band .eyebrow{color:rgba(245,239,230,.7)}
+.band h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,58px);line-height:1.06;letter-spacing:-.02em;margin:16px 0 22px}
+.band h2 em{color:#D8BE8C}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative}
+.partners-line{margin-top:30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#D8BE8C;line-height:2}
+.invite{background:var(--ivory);color:var(--ink);border-radius:999px 999px 10px 10px;padding:46px 28px 26px;text-align:center;border:1px solid var(--gold);position:relative}
+.invite::after{content:"";position:absolute;inset:7px;border:1px solid var(--gold-soft);border-radius:999px 999px 6px 6px;pointer-events:none}
+.invite h3{font-family:var(--serif);font-weight:400;font-size:30px;margin:10px 0 4px}
+.invites{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.path-sec{padding:120px 0}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px}
+.path-step{padding:8px 32px;border-left:1px solid var(--gold-soft)}
+.path-step:first-child{border-left:0;padding-left:0}
+.path-step .n{font-family:var(--serif);font-size:64px;font-weight:300;color:var(--gold);line-height:1}
+.path-step h3{font-family:var(--serif);font-weight:400;font-size:26px;margin:16px 0 8px}
+.path-step p{color:var(--muted)}
+.principles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 22px;padding:30px 0;border-top:1px solid var(--gold-soft);border-bottom:1px solid var(--gold-soft)}
+.principles span.dot{color:var(--gold)}
+.closing{padding:120px 0;display:flex;justify-content:center}
+.closing-arch{width:min(460px,100%);border:1px solid var(--gold);border-radius:999px 999px 8px 8px;padding:90px 40px 50px;text-align:center}
+.closing-arch h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,5vw,58px);line-height:1.02;margin:16px 0 30px}
+.closing-arch h2 em{color:var(--emerald)}
+footer.site-footer{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:30px 0 40px;border-top:1px solid var(--gold-soft)}
+.disclaimer{font-size:12px;color:var(--muted);max-width:520px}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease-out,transform .8s ease-out}
+.reveal.in{opacity:1;transform:none}
+
+/* ===== APP SHELL ===== */
+.app-bar{position:sticky;top:0;z-index:20;background:rgba(245,239,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.app-bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.app-bar .wordmark{font-size:22px}
+.top-tabs{display:flex;gap:6px}
+.top-tabs a{text-decoration:none;font-size:14px;padding:8px 14px;border-radius:999px;color:var(--muted);position:relative}
+.top-tabs a.on{color:var(--ink);background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.dot-gold::after{content:"";position:absolute;top:7px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.bottom-tabs{display:none}
+.app-main{padding:28px 0 60px;min-height:calc(100vh - 64px)}
+.app-footer{padding:22px 0 30px;border-top:1px solid var(--line);margin-top:40px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.card h3{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2}
+.card p{color:var(--muted);font-size:15px}
+.page-title{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4vw,44px);letter-spacing:-.015em;line-height:1.08;margin:6px 0 6px}
+.page-sub{color:var(--muted);margin-bottom:24px}
+.grid-home{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+.stack{display:grid;gap:16px}
+.stage-card{background:var(--emerald);color:var(--ivory);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
+.stage-card::before{content:"";position:absolute;inset:0;opacity:.1;background-size:70px 70px}
+.stage-card > *{position:relative}
+.stage-card .eyebrow{color:rgba(245,239,230,.7)}
+.stage-card h2{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3vw,34px);line-height:1.15;margin:10px 0 8px}
+.stage-card p{color:rgba(245,239,230,.85)}
+.next-card{border:1px solid var(--emerald);background:var(--paper);border-radius:var(--radius);padding:24px;display:grid;gap:14px}
+.next-card h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.15}
+.opt-mini{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+.opt-mini:first-of-type{border-top:0}
+.opt-mini h4{font-family:var(--serif);font-weight:400;font-size:19px}
+.opt-mini p{font-size:14px;color:var(--muted)}
+.comm-card{background:var(--paper);border:1px solid var(--gold);border-radius:999px 999px var(--radius) var(--radius);padding:40px 22px 22px;text-align:center}
+.comm-card h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:8px 0 2px}
+
+/* check-in */
+.ci{max-width:620px;margin:0 auto;padding-top:10px}
+.ci-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;min-height:44px}
+.progress{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:36px}
+.progress span{display:block;height:100%;background:var(--gold);transition:width .3s}
+.ci h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4vw,42px);line-height:1.1;margin:10px 0 26px}
+.choice{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:58px;padding:14px 20px;margin-bottom:10px;background:var(--paper);border:1px solid var(--line);border-radius:12px;text-align:left;font-size:16px;transition:all .15s}
+.choice:hover{border-color:var(--emerald)}
+.choice.on{border-color:var(--emerald);background:#EAF0EC}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+
+/* path */
+.path-head{display:flex;gap:22px;align-items:center;margin-bottom:22px}
+.ring{width:84px;height:84px;flex:none}
+.step{border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-bottom:10px;overflow:hidden}
+.step-h{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;width:100%;padding:16px 18px;text-align:left;min-height:60px}
+.check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ivory)}
+.step.done .check{background:var(--emerald);border-color:var(--emerald)}
+.step.done .step-t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--gold)}
+.step-t{font-weight:500}
+.time{font-size:12px;color:var(--muted)}
+.step-b{display:none;padding:0 18px 18px 60px;color:var(--muted);font-size:15px}
+.step.open .step-b{display:block}
+.step-b .need{margin-top:10px;font-size:13px}
+.step-b .actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;align-items:center}
+
+/* options */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;scrollbar-width:none}
+.filters .chip{flex:none}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt .meta{display:grid;gap:4px;font-size:14px}
+.opt .meta b{font-weight:600;color:var(--ink)}
+.opt .row-act{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+.cmp{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);min-height:40px}
+.cmp input{accent-color:var(--emerald);width:18px;height:18px}
+.cmp-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:30;background:var(--ink);color:var(--ivory);border-radius:999px;padding:10px 10px 10px 22px;display:none;align-items:center;gap:16px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.cmp-bar.show{display:flex}
+
+/* community */
+.circ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.circ{background:var(--paper);border:1px solid var(--gold);border-radius:999px 999px 12px 12px;padding:40px 20px 20px;text-align:center;display:flex;flex-direction:column;gap:6px}
+.circ h3{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2}
+.sec{margin-top:44px}
+.sec-h{font-family:var(--serif);font-weight:400;font-size:28px;margin:6px 0 16px}
+textarea,.input{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);font-size:16px}
+textarea{min-height:110px;resize:vertical}
+textarea:focus,.input:focus{outline:2px solid var(--gold-soft);border-color:var(--gold)}
+.qa{border-top:1px solid var(--line)}
+.qa button{display:flex;justify-content:space-between;width:100%;text-align:left;padding:16px 0;font-weight:500;min-height:52px;gap:12px}
+.qa .a{display:none;padding:0 0 16px;color:var(--muted)}
+.qa.open .a{display:block}
+.partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.partner{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.partner h4{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.25}
+.bring{background:var(--emerald);color:var(--ivory);border-radius:var(--radius);padding:28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.bring h3{font-family:var(--serif);font-weight:300;font-size:28px}
+.bring p{color:rgba(245,239,230,.8)}
+
+/* insights */
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(140px,240px) 1fr 36px;gap:12px;align-items:center;font-size:14px}
+.bar .track{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;background:var(--emerald);border-radius:6px}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(28,26,23,.4);z-index:50;display:none}
+.scrim.show{display:block;animation:fade .2s}
+.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,100%);width:min(640px,100%);max-height:88vh;overflow:auto;background:var(--ivory);border-radius:20px 20px 0 0;z-index:51;padding:12px 24px 30px;transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.sheet.show{transform:translate(-50%,0)}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 16px}
+.sheet h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.15;margin:6px 0 10px}
+.sheet .x{position:absolute;right:14px;top:10px;width:44px;height:44px;font-size:22px;color:var(--muted)}
+.form{display:grid;gap:12px;margin-top:16px}
+.cmp-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.cmp-table th,.cmp-table td{padding:12px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+.cmp-table th{font-weight:500;color:var(--muted);width:30%}
+.cmp-table thead td{font-family:var(--serif);font-size:18px;border-top:0}
+
+/* responsive */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:28px;padding-top:10px}
+  .hero-art{order:-1;max-width:340px;margin:0 auto;width:100%}
+  .arch-frame{max-height:420px}
+  .band-grid,.grid-home,.ins-grid{grid-template-columns:1fr}
+  .invites{grid-template-columns:1fr}
+  .path-grid{grid-template-columns:1fr;gap:28px}
+  .path-step{border-left:0;padding:0;border-top:1px solid var(--gold-soft);padding-top:20px}
+  .path-step:first-child{border-top:0}
+  .site-nav .hide-m{display:none}
+  .row{grid-template-columns:52px 1fr 20px;padding:20px 2px}
+  .row .resp{display:none}
+  .row .num{font-size:26px}
+  .manifesto,.path-sec,.closing{padding:80px 0}
+  .band{padding:80px 0;margin-top:80px}
+  .top-tabs{display:none}
+  .bottom-tabs{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;height:var(--tab-h);background:rgba(251,247,240,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:40;padding-bottom:env(safe-area-inset-bottom)}
+  .bottom-tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;font-size:11px;color:var(--muted);position:relative}
+  .bottom-tabs a svg{width:22px;height:22px}
+  .bottom-tabs a.on{color:var(--emerald);font-weight:600}
+  .bottom-tabs a.dot-gold::after{top:10px;right:calc(50% - 16px)}
+  .app-main{padding-bottom:calc(var(--tab-h) + 30px)}
+  .cmp-bar{bottom:calc(var(--tab-h) + 14px)}
+  .step-b{padding-left:18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= LANDING ================= -->
+<div id="v-landing" class="view">
+  <div class="wrap">
+    <header class="site-header">
+      <a class="wordmark" href="#top"><span class="brand-arch"></span>nisab<span class="gold">.</span></a>
+      <nav class="site-nav">
+        <a class="hide-m" href="#" data-scroll="story">Our story</a>
+        <a class="hide-m" href="#partners">For partners</a>
+        <a class="link" href="#community">Community <span class="arrow">→</span></a>
+      </nav>
+    </header>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Nisab — Halal wealth, together</p>
+        <h1>You started.<br><em>Let’s finish.</em></h1>
+        <p class="lede">For Muslim women who began investing and paused. See where you stand, understand your halal options, and know exactly how to start again.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#check-in">Find my next step <span class="arrow">→</span></a>
+          <a class="link" href="#community">See Circles near you <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="arch-frame"><div class="lattice" style="position:absolute;inset:0;opacity:.35;background-size:60px 60px"></div><div class="rays"></div><div class="inner-arch"></div></div>
+        <span class="caption">A little light. A way forward.</span>
+      </div>
+    </section>
+    <div class="hero-bottom"><span class="eyebrow">Rooted in faith. Moving forward.</span><span class="eyebrow">About 45 seconds to begin</span></div>
+
+    <section id="story" class="manifesto reveal">
+      <p class="eyebrow">The pause</p>
+      <blockquote>Most women don’t stop because they don’t care. They stop because the options are scattered, the language is foreign, and <em>no one is walking beside them.</em></blockquote>
+      <p class="note">From 35 conversations with Muslim women across New York and Pennsylvania.</p>
+    </section>
+
+    <section class="reveal">
+      <div class="section-top">
+        <div><p class="eyebrow">A place to begin again</p><h2 class="section-title">Where did you leave off?</h2></div>
+        <p class="aside">Not where you should be.<br>Just where you are.</p>
+      </div>
+      <div class="rows" id="landing-rows"></div>
+    </section>
+  </div>
+
+  <section class="band">
+    <div class="lattice" style="position:absolute;inset:0;opacity:.1;background-size:80px 80px"></div>
+    <div class="wrap band-grid reveal">
+      <div>
+        <p class="eyebrow">The Circle · Our community</p>
+        <h2>Investing was never meant to be <em>a solitary act.</em></h2>
+        <p style="color:rgba(245,239,230,.85);max-width:460px">Small, women-only Circles, hosted in masjids and campus MSAs. Come when you want. Bring your questions. Leave with a next step.</p>
+        <p class="partners-line" id="band-partners"></p>
+        <a class="btn light" href="#community" style="margin-top:22px">See Circles near you <span class="arrow">→</span></a>
+      </div>
+      <div class="invites" id="band-invites"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="path-sec reveal">
+      <p class="eyebrow">How it works</p>
+      <h2 class="section-title">A next step. Not a leap.</h2>
+      <div class="path-grid">
+        <div class="path-step"><span class="n">I.</span><h3>Know where you stand</h3><p>Four quick questions about where you paused.</p></div>
+        <div class="path-step"><span class="n">II.</span><h3>See your options, translated</h3><p>The halal options that fit your stage, in plain language.</p></div>
+        <div class="path-step"><span class="n">III.</span><h3>Know exactly how to start</h3><p>A short checklist, and a Circle whenever you want company.</p></div>
+      </div>
+    </section>
+    <div class="principles reveal">
+      <span class="eyebrow">Shariah-screened by default</span><span class="dot">·</span>
+      <span class="eyebrow">Your values, your screens</span><span class="dot">·</span>
+      <span class="eyebrow">No jargon</span><span class="dot">·</span>
+      <span class="eyebrow">No judgment</span>
+    </div>
+    <section class="closing reveal">
+      <div class="closing-arch">
+        <p class="eyebrow">Whenever you’re ready</p>
+        <h2>The door is<br><em>still open.</em></h2>
+        <a class="btn" href="#check-in">Find my next step <span class="arrow">→</span></a>
+      </div>
+    </section>
+    <footer class="site-footer">
+      <a class="wordmark" href="#top">nisab<span class="gold">.</span></a>
+      <p class="disclaimer">Nisab is an educational prototype. We don’t provide financial, legal, or religious advice. Confirm details with providers and a qualified scholar.</p>
+      <a class="link" href="#partners">For masjids, MSAs & providers <span class="arrow">→</span></a>
+    </footer>
+  </div>
+</div>
+
+<!-- ================= APP SHELL ================= -->
+<div id="app" style="display:none">
+  <header class="app-bar">
+    <div class="wrap">
+      <a class="wordmark" href="#top"><span class="brand-arch"></span>nisab<span class="gold">.</span></a>
+      <nav class="top-tabs" id="top-tabs">
+        <a href="#home" data-tab="home">Home</a>
+        <a href="#my-path" data-tab="my-path">My Path</a>
+        <a href="#options" data-tab="options">Options</a>
+        <a href="#community" data-tab="community" class="dot-gold">Community</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main"><div class="wrap">
+
+    <!-- CHECK-IN -->
+    <section id="v-check-in" class="view"><div class="ci" id="ci"></div></section>
+
+    <!-- HOME -->
+    <section id="v-home" class="view"></section>
+
+    <!-- MY PATH -->
+    <section id="v-my-path" class="view"></section>
+
+    <!-- OPTIONS -->
+    <section id="v-options" class="view">
+      <p class="eyebrow">Step II · Your options, translated</p>
+      <h1 class="page-title">Halal options, in plain English.</h1>
+      <p class="page-sub">Scattered across a dozen brands. Here in one place, starting with what fits your stage.</p>
+      <div class="filters" id="filters"></div>
+      <div class="opt-grid" id="opt-grid"></div>
+      <p class="note" style="margin-top:18px">Example options, not recommendations. Details change; confirm current terms, fees and availability with each provider.</p>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="v-community" class="view">
+      <p class="eyebrow gold">Our signature · Always here, never required</p>
+      <h1 class="page-title">Your community.</h1>
+      <p class="page-sub">Women-only Circles at the masjids and MSAs you already trust. Join one, ask a question anonymously, or just know it’s here.</p>
+
+      <div class="sec" style="margin-top:8px">
+        <p class="eyebrow">Membership</p>
+        <h2 class="sec-h">Free to start. Pay for community.</h2>
+        <div class="ins-grid">
+          <div class="card" style="display:grid;gap:10px">
+            <span class="tag">Free · always</span>
+            <h3>Nisab</h3>
+            <p class="serif" style="font-size:40px;color:var(--ink);line-height:1">$0</p>
+            <ul style="color:var(--muted);font-size:15px;padding-left:18px;display:grid;gap:4px"><li>Where-you-stand check-in</li><li>Halal options, translated</li><li>Your step-by-step path</li><li>Your first Circle, free</li></ul>
+          </div>
+          <div class="card" style="display:grid;gap:10px;border-color:var(--gold)">
+            <span class="tag">Signature</span>
+            <h3>Nisab Circle</h3>
+            <p class="serif" style="font-size:40px;color:var(--emerald);line-height:1">$5<span style="font-size:18px;color:var(--muted)"> / month</span></p>
+            <p class="note">or $48 / year</p>
+            <ul style="color:var(--muted);font-size:15px;padding-left:18px;display:grid;gap:4px"><li>Unlimited women-only Circles</li><li>Anonymous questions answered by facilitators</li><li>Monthly check-ins on your next step</li><li>Priority seats</li></ul>
+            <button class="btn" id="join-circle">Join Nisab Circle <span class="arrow">→</span></button>
+            <p class="note">Sponsored seats available through partner masjids and donors.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" style="margin-top:44px">
+        <p class="eyebrow">Circles</p>
+        <h2 class="sec-h">Upcoming Circles <span class="sample">Illustrative dates</span></h2>
+        <div class="circ-grid" id="circ-grid"></div>
+      </div>
+
+      <div class="sec">
+        <p class="eyebrow">Ask anonymously</p>
+        <h2 class="sec-h">No name. No judgment.</h2>
+        <div class="card">
+          <form id="ask-form" class="form" style="margin-top:0">
+            <textarea id="ask-text" placeholder="e.g. My husband invests for both of us. How do I find out what we actually own?" required></textarea>
+            <div class="chips" id="ask-tags" style="margin-bottom:0"></div>
+            <button class="btn" type="submit">Send my question <span class="arrow">→</span></button>
+            <p class="note" id="ask-ok" style="display:none">Received. Your question will be answered at the next Circle and posted here without your name. (Prototype: saved on this device only.)</p>
+          </form>
+        </div>
+        <div style="margin-top:20px" id="qa-list"></div>
+      </div>
+
+      <div class="sec">
+        <p class="eyebrow">Partner institutions</p>
+        <h2 class="sec-h">Where Circles meet</h2>
+        <div class="partner-grid" id="partner-grid"></div>
+      </div>
+
+      <div class="sec">
+        <div class="bring">
+          <div><h3>Bring Nisab to your masjid or MSA.</h3><p>A ready-made women’s financial program, run with you.</p></div>
+          <button class="btn light" data-open="partner-form" data-kind="Masjid / MSA">Partner with us <span class="arrow">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS (B2B) -->
+    <section id="v-partners" class="view">
+      <p class="eyebrow">For partners</p>
+      <h1 class="page-title">Nisab works with institutions, too.</h1>
+      <p class="page-sub">Women are our users. Masjids and MSAs are how we reach them. Providers are who we help them start with.</p>
+      <div class="ins-grid">
+        <div class="card" style="display:grid;gap:12px">
+          <span class="tag">For masjids & MSAs</span>
+          <h3>Host a women’s financial program, without building one.</h3>
+          <p>We bring the curriculum, a trained facilitator and the Nisab app. You bring the room and the trust. Your community gets a clear, faith-aligned path to financial independence.</p>
+          <ul style="color:var(--muted);font-size:15px;padding-left:18px;display:grid;gap:4px"><li>Women-only Circles, on your schedule</li><li>Curriculum built for halal investing basics</li><li>Anonymous question box for your community</li></ul>
+          <button class="btn" data-open="partner-form" data-kind="Masjid / MSA">Partner with us <span class="arrow">→</span></button>
+        </div>
+        <div class="card" style="display:grid;gap:12px">
+          <span class="tag">For financial providers</span>
+          <h3>Women who arrive understanding your product.</h3>
+          <p>Halal platforms and banks lose women in confusing onboarding. Nisab translates your product in plain language and walks women through starting, so they show up informed and confident.</p>
+          <ul style="color:var(--muted);font-size:15px;padding-left:18px;display:grid;gap:4px"><li>Plain-language product guides</li><li>Educational sessions in our Circles</li><li>Anonymized insight into where women get stuck</li></ul>
+          <button class="btn ghost" data-open="partner-form" data-kind="Financial provider">Get in touch <span class="arrow">→</span></button>
+        </div>
+      </div>
+      <div class="sec">
+        <p class="eyebrow">Pilot pricing</p>
+        <h2 class="sec-h">How partnership works</h2>
+        <div class="partner-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">
+          <div class="card"><span class="tag">Campus MSAs</span><h3 style="margin:8px 0 6px">Free</h3><p>Circles, curriculum and app for your members at no cost.</p></div>
+          <div class="card"><span class="tag">Masjids</span><h3 style="margin:8px 0 6px">Free pilot semester</h3><p>Then a per-semester program fee, set with each partner. Or a share of memberships from your community.</p></div>
+          <div class="card"><span class="tag">Financial providers</span><h3 style="margin:8px 0 6px">Education sponsorship</h3><p>Flat, openly disclosed sponsorship of Circle series and guides. No per-sign-up fees.</p></div>
+        </div>
+        <p class="note" style="margin-top:12px">Pilot pricing, subject to change.</p>
+      </div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section id="v-insights" class="view">
+      <p class="eyebrow">Founder view · Prototype</p>
+      <h1 class="page-title">Where women stall.</h1>
+      <p class="page-sub"><b>Demo only.</b> Charts use placeholder numbers, not real results. Only the “check-ins on this device” count is real.</p>
+      <div class="ins-grid" id="ins-grid"></div>
+    </section>
+
+  </div>
+  <div class="wrap app-footer"><p class="disclaimer">Nisab is an educational prototype. We don’t provide financial, legal, or religious advice. Confirm details with providers and a qualified scholar. <a href="#partners">For partners</a> · <a href="#insights">Insights</a></p></div>
+  </main>
+
+  <nav class="bottom-tabs" id="bottom-tabs">
+    <a href="#home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V10a8 8 0 0 1 16 0v11z"/><path d="M9 21v-6a3 3 0 0 1 6 0v6"/></svg>Home</a>
+    <a href="#my-path" data-tab="my-path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>My Path</a>
+    <a href="#options" data-tab="options"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Options</a>
+    <a href="#community" data-tab="community" class="dot-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20a5 5 0 0 1 10 0M11 20a5 5 0 0 1 10 0"/></svg>Community</a>
+  </nav>
+</div>
+
+<div class="cmp-bar" id="cmp-bar"><span id="cmp-count">1 selected</span><button class="btn" style="min-height:40px" id="cmp-go">Compare</button></div>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><button class="x" id="sheet-x" aria-label="Close">×</button><div id="sheet-body"></div></div>
+
+<script>
+/* ================= DATA ================= */
+const PAUSES = [
+  {label:"I never opened an account", resp:"Then let’s open the right one.", stage:"Not started yet", reassure:"Starting late is still starting. Most of the work is choosing, and that part takes minutes."},
+  {label:"I opened one, but never funded it", resp:"The hardest part is done. Let’s fund it.", stage:"Opened, not funded", reassure:"You already did the paperwork. Your next step is small: a first deposit, any amount."},
+  {label:"I invested, then stopped", resp:"Let’s pick up where you left off.", stage:"Started, then paused", reassure:"Pausing is common. Let’s make your next contribution automatic so it doesn’t depend on remembering."},
+  {label:"Someone in my family invests for me", resp:"Let’s make sure you understand what’s yours.", stage:"Managed by family", reassure:"Trusting family is fine. Knowing what you own, in your own name, is your right."},
+  {label:"I invest, but I’m not sure it’s halal", resp:"Let’s check it, and fix it if needed.", stage:"Investing, unsure it’s halal", reassure:"You’re already ahead. Checking your holdings takes a few minutes with a screener."}
+];
+const GOALS = ["Retirement","Hajj / Umrah","A home","My children","Growing savings"];
+const STYLES = ["Do it for me","I’ll pick myself","Not sure yet"];
+const HAVES = ["Nothing yet","A regular brokerage (Fidelity, Schwab, Robinhood…)","A halal platform (Wahed, Manzil, Musaffa…)","A workplace 401(k)","A family member manages it"];
+
+const PARTNERS = [
+  {name:"Long Island Muslim Society", place:"Long Island, NY"},
+  {name:"Qalam", place:"Dallas, TX"},
+  {name:"EPIC", place:"Texas"},
+  {name:"Maryam Islamic Center", place:"Houston, TX"},
+  {name:"Muslim Association of the Lehigh Valley (MALV)", place:"Lehigh Valley, PA"},
+  {name:"Lehigh University MSA", place:"Bethlehem, PA"}
+];
+const CIRCLES = [
+  {host:"Muslim Association of the Lehigh Valley", city:"Lehigh Valley, PA", date:"Sun · Dec 7", time:"After Dhuhr", seats:6},
+  {host:"Long Island Muslim Society", city:"Long Island, NY", date:"Sat · Dec 13", time:"11:00 AM", seats:8},
+  {host:"Lehigh University MSA", city:"Bethlehem, PA", date:"Thu · Dec 11", time:"6:30 PM", seats:10},
+  {host:"Maryam Islamic Center", city:"Houston, TX", date:"Sun · Jan 11", time:"After Asr", seats:12}
+];
+
+const OPTIONS = [
+  {id:"wahed", name:"Wahed", type:"Managed portfolio", what:"Builds and manages a halal portfolio for you, automatically.", good:"you want it done for you", need:"ID, SSN, a bank account", hands:"off", tags:["handsoff","retirement"], stages:[0,1,2], acct:"Individual, retirement (IRA)"},
+  {id:"manzil", name:"Manzil", type:"Managed portfolio", what:"An app for US Muslims that invests toward goals like retirement, Hajj or a home.", good:"you think in goals, not tickers", need:"ID, SSN, a bank account", hands:"off", tags:["handsoff","retirement"], stages:[0,1,2], acct:"Individual, retirement (IRA)"},
+  {id:"manzil-trading", name:"Manzil Trading", type:"Self-directed app", what:"Pick your own stocks; non-compliant ones simply can’t be bought.", good:"you want control with guardrails", need:"ID, SSN, a bank account", hands:"on", tags:["handson"], stages:[0,1,2], acct:"Individual (taxable)"},
+  {id:"musaffa", name:"Musaffa", type:"Self-directed + screener", what:"Screen, invest and link existing accounts to check compliance in one view.", good:"you want to see everything in one place", need:"ID, SSN, a bank account", hands:"on", tags:["handson","brokerage"], stages:[0,1,2,3,4], acct:"Individual; links outside accounts"},
+  {id:"spus", name:"SP Funds S&P 500 Shariah ETF (SPUS)", type:"Fund / ETF", what:"One fund holding roughly 200 Shariah-screened S&P 500 companies.", good:"you already have a brokerage", need:"Any brokerage account", hands:"on", tags:["brokerage","handson"], stages:[2,4], acct:"Any brokerage account or IRA"},
+  {id:"hlal", name:"Wahed FTSE USA Shariah ETF (HLAL)", type:"Fund / ETF", what:"A fund of Shariah-compliant US companies, bought like a single stock.", good:"you already have a brokerage", need:"Any brokerage account", hands:"on", tags:["brokerage","handson"], stages:[2,4], acct:"Any brokerage account or IRA"},
+  {id:"amana", name:"Amana Funds", type:"Fund / ETF", what:"The longest-running halal fund family in the US, now with ETFs too.", good:"you want a long track record", need:"Brokerage account, or open directly", hands:"off", tags:["brokerage","retirement","handsoff"], stages:[0,2,4], acct:"Funds, ETFs, IRAs"},
+  {id:"zoya", name:"Zoya", type:"Screener", what:"Tells you if a stock or fund is Shariah-compliant. Not a broker.", good:"you want to check what you own", need:"Just the app", hands:"on", tags:["brokerage"], stages:[3,4], acct:"Works alongside any brokerage"},
+  {id:"shariaportfolio", name:"ShariaPortfolio", type:"Retirement / 401(k)", what:"Halal 401(k) plans for employers, plus managed retirement options.", good:"your 401(k) has no halal option", need:"Employer interest, or a rollover", hands:"off", tags:["retirement","handsoff"], stages:[4], acct:"401(k), IRA rollovers"},
+  {id:"stearns", name:"Stearns Bank · Salaam Banking", type:"Bank product", what:"Riba-free checking, savings and CDs from an FDIC-insured bank.", good:"you want a halal place for cash", need:"ID, SSN", hands:"off", tags:["bank"], stages:[0,1,2,3,4], acct:"Checking, savings, CDs"},
+  {id:"uif", name:"UIF (University Islamic Financial)", type:"Bank product", what:"Profit-sharing savings instead of interest.", good:"you want halal savings", need:"ID, SSN", hands:"off", tags:["bank"], stages:[0,1,2,3,4], acct:"Savings, time deposits"}
+];
+
+const PATHS = {
+  managed:{title:"A managed halal portfolio", why:"It’s built and rebalanced for you. You choose a goal; it does the rest.", options:["wahed","manzil","amana"], steps:[
+    {t:"Gather your ID, SSN and bank details", time:"~5 min", d:"Have your government ID, Social Security number and your bank’s routing and account number ready.", need:"ID · SSN · bank info"},
+    {t:"Answer the goal & risk questions", time:"~5 min", d:"Pick the goal you care about. The app suggests a portfolio based on your answers. A <span class='term' data-term='Robo-advisor'>robo-advisor</span> handles the rest."},
+    {t:"Open the account", time:"~10 min", d:"Choose individual or retirement (e.g. a <span class='term' data-term='Roth IRA'>Roth IRA</span>). If unsure, bring the question to a Circle."},
+    {t:"Make your first deposit, any amount", time:"~2 min", d:"The first deposit is the step most women never take. It doesn’t need to be big."},
+    {t:"Turn on an automatic monthly amount", time:"~2 min", d:"Automatic means it keeps going even when life gets busy."},
+    {t:"Note your yearly purification & zakat", time:"Once a year", d:"Many halal providers publish a <span class='term' data-term='Purification'>purification</span> amount. Ask a scholar how <span class='term' data-term='Zakat'>zakat</span> applies to your holdings."}
+  ]},
+  self:{title:"Pick your own halal investments", why:"You choose what you hold, with Shariah screening built in.", options:["manzil-trading","musaffa","spus"], steps:[
+    {t:"Gather your ID, SSN and bank details", time:"~5 min", d:"Same as any account: ID, SSN, bank routing and account number.", need:"ID · SSN · bank info"},
+    {t:"Open a self-directed account", time:"~10 min", d:"Choose an app where <span class='term' data-term='Shariah screening'>Shariah screening</span> is built in."},
+    {t:"Fund it, any amount", time:"~2 min", d:"Link your bank and move a first amount in."},
+    {t:"Choose a first investment", time:"~10 min", d:"Many beginners learn with one broad halal <span class='term' data-term='ETF'>ETF</span> before individual stocks. This is education, not a recommendation."},
+    {t:"Set a recurring contribution", time:"~2 min", d:"Small and automatic beats large and occasional."},
+    {t:"Note your yearly purification & zakat", time:"Once a year", d:"Check your provider’s purification figures and ask a scholar about zakat."}
+  ]},
+  fund:{title:"Fund the account you already opened", why:"You did the hard part. One deposit and you’re investing.", options:["wahed","manzil","musaffa"], steps:[
+    {t:"Log back into the account you opened", time:"~3 min", d:"Use “forgot password” if needed. It happens to everyone."},
+    {t:"Link your bank", time:"~5 min", d:"Most apps connect to your bank in a few taps.", need:"Bank login"},
+    {t:"Make your first deposit, any amount", time:"~2 min", d:"This is the step. Any amount counts."},
+    {t:"Turn on auto-deposit", time:"~2 min", d:"Choose an amount you won’t miss each month."},
+    {t:"Bring your questions to a Circle", time:"Optional", d:"If something felt confusing, that’s exactly what Circles are for."}
+  ]},
+  brokerage:{title:"Keep your account, go halal", why:"No need to switch. Check what you hold and add halal funds where you already invest.", options:["spus","hlal","zoya"], steps:[
+    {t:"Log into your current brokerage", time:"~2 min", d:"Fidelity, Schwab, Robinhood: whichever you use. A <span class='term' data-term='Brokerage account'>brokerage account</span> can hold halal funds."},
+    {t:"Check what you already own with a screener", time:"~10 min", d:"Use a screener like Zoya or Musaffa to see which holdings pass <span class='term' data-term='Shariah screening'>Shariah screening</span>."},
+    {t:"Look up a halal ETF by its ticker", time:"~3 min", d:"Search a ticker such as SPUS or HLAL to learn what it holds. Education, not a recommendation."},
+    {t:"Make your first halal purchase", time:"~5 min", d:"Many brokerages allow fractional shares, so any amount can work."},
+    {t:"Set a recurring purchase", time:"~2 min", d:"Automate it so it continues."},
+    {t:"Track purification once a year", time:"Once a year", d:"Halal funds often publish a purification figure."}
+  ]},
+  retirement:{title:"Check your workplace plan", why:"Many 401(k)s have no halal option. Here’s how to find out, and what to ask.", options:["amana","shariaportfolio","manzil"], steps:[
+    {t:"Log into your 401(k) portal", time:"~3 min", d:"Your <span class='term' data-term='401(k)'>401(k)</span> provider is listed in your HR benefits info."},
+    {t:"Look at the fund menu for a Shariah-compliant option", time:"~10 min", d:"Search for words like “Amana”, “Shariah” or “Islamic” in the fund list."},
+    {t:"If there isn’t one, ask HR", time:"~5 min", d:"Ask: “Can our plan add a Shariah-compliant fund option?” Some providers offer turnkey halal 401(k)s."},
+    {t:"Learn how your employer match works", time:"~5 min", d:"Understand the match before changing contributions. Bring questions to a Circle."},
+    {t:"Explore a halal IRA alongside it", time:"~10 min", d:"A <span class='term' data-term='Roth IRA'>Roth IRA</span> at a halal provider can sit next to your 401(k)."}
+  ]},
+  family:{title:"Understand what you own", why:"Trusting family is fine. Knowing what’s in your name is your right.", options:["musaffa","zoya","stearns"], steps:[
+    {t:"Ask to see the account statements", time:"One conversation", d:"Try: “I’d like to understand our investments. Can we look at them together?”"},
+    {t:"Find out whose name each account is in", time:"~10 min", d:"Accounts in your name are legally yours. Knowing this matters for zakat and planning."},
+    {t:"Check the holdings with a screener", time:"~10 min", d:"See whether what you own passes <span class='term' data-term='Shariah screening'>Shariah screening</span>."},
+    {t:"Ask for your own login, or your own account", time:"One conversation", d:"Being able to see your money yourself is the first step to independence."},
+    {t:"Bring it to a Circle", time:"Optional", d:"Other women have navigated this exact conversation."}
+  ]}
+};
+
+const GLOSSARY = {
+  "ETF":"A basket of many companies you buy as one share. Bought and sold through a brokerage account.",
+  "Robo-advisor":"A service that builds and rebalances a portfolio for you automatically, based on a few questions.",
+  "Roth IRA":"A US retirement account funded with money you’ve already paid tax on. Qualified withdrawals in retirement are tax-free. Yearly contribution limits apply.",
+  "Purification":"Donating the small share of earnings that came from non-compliant sources, like a company’s interest income. Many halal funds publish this figure.",
+  "Zakat":"The obligatory yearly charity on qualifying wealth, which can include investments. Ask a scholar how it applies to you.",
+  "Shariah screening":"Checking a company’s business (no alcohol, gambling, interest-based lending, etc.) and its finances (like debt levels) against Islamic standards.",
+  "401(k)":"A retirement account through your employer. Its fund menu may or may not include a Shariah-compliant option.",
+  "Brokerage account":"An account for buying and selling stocks and funds, such as Fidelity, Schwab or Robinhood."
+};
+
+const SAMPLE_QA = [
+  {q:"Is it halal to keep money in a regular checking account?", a:"Many scholars treat a checking account as a payment and safekeeping service rather than an interest contract, as long as it doesn’t pay interest. Ask your scholar for your situation."},
+  {q:"I opened a Wahed account two years ago and never funded it. Is it still there?", a:"Often, yes. Log in or use “forgot password.” If it was closed, reopening usually takes minutes. Bring it to a Circle if you get stuck."},
+  {q:"My brother manages our family’s investments. How do I ask to see them without it being awkward?", a:"Many women frame it as learning, not checking: “I want to understand this so I can help plan.” Our Circles practice this conversation."}
+];
+const ASK_TAGS = ["Getting started","Funding","Is it halal?","Family & money","Retirement"];
+
+/* ================= STATE ================= */
+const store = {
+  get(k,d){try{const v=localStorage.getItem("nisab_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("nisab_"+k,JSON.stringify(v))}catch(e){}}
+};
+let answers = store.get("answers", null);
+let draft = {pause:null, goals:[], style:null, have:null};
+let ciStep = 0;
+let done = store.get("done", {});
+let filters = {stage:true, f:null};
+let compare = [];
+
+/* ================= HELPERS ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const opt = id => OPTIONS.find(o => o.id === id);
+
+function pathKey(a){
+  if(!a) return null;
+  if(a.pause===3 || a.have===4) return "family";
+  if(a.have===3) return "retirement";
+  if(a.have===1 || (a.pause===4 && a.have!==2)) return "brokerage";
+  if(a.pause===1 && a.have===2) return "fund";
+  if(a.style===1) return "self";
+  return "managed";
+}
+function altKey(k,a){
+  if(k==="managed") return "self";
+  if(k==="self") return "managed";
+  if(k==="fund") return a.style===1 ? "self" : "managed";
+  if(k==="brokerage") return "managed";
+  if(k==="retirement") return "brokerage";
+  return "managed";
+}
+
+/* ================= SHEET ================= */
+function openSheet(html){ $("#sheet-body").innerHTML = html; $("#scrim").classList.add("show"); $("#sheet").classList.add("show"); bindTerms($("#sheet-body")); }
+function closeSheet(){ $("#scrim").classList.remove("show"); $("#sheet").classList.remove("show"); }
+$("#scrim").onclick = closeSheet; $("#sheet-x").onclick = closeSheet;
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeSheet(); });
+
+function bindTerms(root){
+  root.querySelectorAll(".term").forEach(t => t.onclick = e => {
+    e.stopPropagation();
+    const k = t.dataset.term;
+    openSheet(`<p class="eyebrow">Glossary</p><h3>${esc(k)}</h3><p style="color:var(--muted)">${esc(GLOSSARY[k]||"")}</p>`);
+  });
+}
+
+function seatSheet(c){
+  openSheet(`<p class="eyebrow gold">Save a seat · ${esc(c.date)}</p><h3>${esc(c.host)}</h3><p class="note">${esc(c.city)} · ${esc(c.time)} · Women only</p>
+  <form class="form" id="seat-form"><input class="input" placeholder="First name" required><input class="input" placeholder="Email or phone" required><textarea placeholder="A question you’d like to bring (optional)"></textarea><button class="btn" type="submit">Request my seat <span class="arrow">→</span></button></form>
+  <p class="note" style="margin-top:10px">Prototype: dates are illustrative and no reservation is made.</p>`);
+  $("#seat-form").onsubmit = e => { e.preventDefault(); const n = store.get("seats",0)+1; store.set("seats",n);
+    $("#sheet-body").innerHTML = `<p class="eyebrow gold">Request received</p><h3>We’ll save you a seat.</h3><p style="color:var(--muted)">In the real product, the Circle host would confirm by message. For now this is saved on this device only.</p><button class="btn" style="margin-top:16px" onclick="closeSheet()">Done</button>`; };
+}
+
+function askSheet(tag){
+  openSheet(`<p class="eyebrow">Ask anonymously${tag?" · "+esc(tag):""}</p><h3>Stuck? Ask the community.</h3><form class="form" id="ask2"><textarea placeholder="What’s confusing you here?" required></textarea><button class="btn" type="submit">Send <span class="arrow">→</span></button></form><p class="note" style="margin-top:10px">No name attached. Answered at the next Circle.</p>`);
+  $("#ask2").onsubmit = e => { e.preventDefault(); logQuestion(tag||"Getting started");
+    $("#sheet-body").innerHTML = `<p class="eyebrow gold">Sent</p><h3>Your question is in.</h3><p style="color:var(--muted)">It’ll be answered at the next Circle, without your name.</p><button class="btn" style="margin-top:16px" onclick="closeSheet()">Back to my path</button>`; };
+}
+function logQuestion(tag){ const q = store.get("questions",{}); q[tag]=(q[tag]||0)+1; store.set("questions",q); }
+
+function partnerSheet(kind){
+  openSheet(`<p class="eyebrow">${esc(kind)}</p><h3>Let’s talk.</h3><form class="form" id="pform"><input class="input" placeholder="Organization name" required><input class="input" placeholder="Your name" required><input class="input" placeholder="Email" required><input class="input" placeholder="City"><button class="btn" type="submit">Send <span class="arrow">→</span></button></form>`);
+  $("#pform").onsubmit = e => { e.preventDefault(); $("#sheet-body").innerHTML = `<p class="eyebrow gold">Thank you</p><h3>We’ll be in touch.</h3><p style="color:var(--muted)">Prototype: nothing was sent.</p><button class="btn" style="margin-top:16px" onclick="closeSheet()">Done</button>`; };
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-open='partner-form']"); if(b) partnerSheet(b.dataset.kind); });
+
+/* ================= LANDING ================= */
+function renderLanding(){
+  $("#landing-rows").innerHTML = PAUSES.map((p,i)=>`<button class="row" data-p="${i}"><span class="num">${String(i+1).padStart(2,"0")}</span><span class="label">${esc(p.label)}</span><span class="resp">${esc(p.resp)}</span><span class="arrow">→</span></button>`).join("");
+  $("#landing-rows").querySelectorAll(".row").forEach(r => r.onclick = () => { draft = {pause:+r.dataset.p, goals:[], style:null, have:null}; ciStep = 1; location.hash = "check-in"; });
+  $("#band-partners").innerHTML = PARTNERS.map(p=>esc(p.name)).join(" · ");
+  $("#band-invites").innerHTML = CIRCLES.slice(0,2).map((c,i)=>`<article class="invite"><span class="eyebrow">A seat at the table</span><h3>${esc(c.city.split(",")[0])}</h3><p class="eyebrow">${esc(c.date)}</p><p style="color:var(--muted);font-size:14px;margin:6px 0 16px">${esc(c.host)}</p><button class="btn" data-seat="${i}">Save a seat <span class="arrow">→</span></button></article>`).join("");
+  $("#band-invites").querySelectorAll("[data-seat]").forEach(b => b.onclick = () => seatSheet(CIRCLES[+b.dataset.seat]));
+  const io = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} }), {threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  document.querySelector("[data-scroll='story']").onclick = e => { e.preventDefault(); $("#story").scrollIntoView({behavior:"smooth"}); };
+}
+
+/* ================= CHECK-IN ================= */
+function renderCheckIn(){
+  const total = 4, pct = (ciStep/total)*100;
+  const head = `<div class="ci-top">${ciStep>0?`<button class="link" id="ci-back">← Back</button>`:`<a class="link" href="#top">← Nisab</a>`}<span class="note">${ciStep===0?"About 45 seconds":`${ciStep+1} of ${total}`}</span></div><div class="progress"><span style="width:${Math.max(pct,4)}%"></span></div><p class="eyebrow">Step I · Know where you stand</p>`;
+  let body = "";
+  if(ciStep===0) body = `<h2>Where did you stop?</h2>` + PAUSES.map((p,i)=>`<button class="choice ${draft.pause===i?"on":""}" data-v="${i}">${esc(p.label)}<span class="arrow">→</span></button>`).join("");
+  if(ciStep===1) body = `<h2>What’s it for?</h2><p class="note" style="margin:-14px 0 18px">Choose any.</p><div class="chips">${GOALS.map((g,i)=>`<button class="chip ${draft.goals.includes(i)?"on":""}" data-g="${i}">${esc(g)}</button>`).join("")}</div><button class="btn" id="ci-next">Continue <span class="arrow">→</span></button>`;
+  if(ciStep===2) body = `<h2>Hands-on or hands-off?</h2>` + STYLES.map((s,i)=>`<button class="choice ${draft.style===i?"on":""}" data-v="${i}">${esc(s)}<span class="arrow">→</span></button>`).join("");
+  if(ciStep===3) body = `<h2>What do you already have?</h2>` + HAVES.map((h,i)=>`<button class="choice ${draft.have===i?"on":""}" data-v="${i}">${esc(h)}<span class="arrow">→</span></button>`).join("");
+  $("#ci").innerHTML = head + body;
+  const back = $("#ci-back"); if(back) back.onclick = () => { ciStep--; renderCheckIn(); };
+  $("#ci").querySelectorAll(".choice").forEach(b => b.onclick = () => {
+    const v = +b.dataset.v;
+    if(ciStep===0) draft.pause = v; if(ciStep===2) draft.style = v; if(ciStep===3) draft.have = v;
+    b.classList.add("on");
+    setTimeout(() => { if(ciStep<3){ ciStep++; renderCheckIn(); } else finishCheckIn(); }, 180);
+  });
+  $("#ci").querySelectorAll("[data-g]").forEach(c => c.onclick = () => { const g=+c.dataset.g; draft.goals = draft.goals.includes(g)?draft.goals.filter(x=>x!==g):[...draft.goals,g]; c.classList.toggle("on"); });
+  const nx = $("#ci-next"); if(nx) nx.onclick = () => { ciStep++; renderCheckIn(); };
+}
+function finishCheckIn(){
+  answers = {...draft}; store.set("answers", answers);
+  const log = store.get("log", []); log.push({...answers, path:pathKey(answers)}); store.set("log", log);
+  done = {}; store.set("done", done);
+  location.hash = "home";
+}
+
+/* ================= HOME ================= */
+function needCheckIn(target){
+  $(target).innerHTML = `<div class="ci" style="text-align:center;padding-top:40px"><p class="eyebrow">Step I</p><h2 class="page-title">First, where do you stand?</h2><p class="page-sub">Four quick questions. About 45 seconds.</p><a class="btn" href="#check-in">Start the check-in <span class="arrow">→</span></a><p style="margin-top:22px"><a class="link" href="#options">Or browse all options <span class="arrow">→</span></a></p></div>`;
+}
+function renderHome(){
+  if(!answers){ needCheckIn("#v-home"); return; }
+  const p = PAUSES[answers.pause], k = pathKey(answers), path = PATHS[k];
+  const steps = path.steps, nDone = steps.filter((_,i)=>done[k+i]).length;
+  const next = steps.findIndex((_,i)=>!done[k+i]);
+  const goals = answers.goals.map(g=>GOALS[g]).join(", ");
+  $("#v-home").innerHTML = `
+  <p class="eyebrow">Where you stand</p>
+  <div class="grid-home" style="margin-top:10px">
+    <div class="stack">
+      <div class="stage-card"><div class="lattice" style="position:absolute;inset:0;opacity:.1;background-size:70px 70px"></div><p class="eyebrow">Your stage</p><h2>${esc(p.stage)}</h2><p>${esc(p.reassure)}</p>${goals?`<p class="note" style="color:rgba(245,239,230,.7);margin-top:10px">Investing for: ${esc(goals)}</p>`:""}</div>
+      <div class="next-card">
+        <span class="tag">Your next step · ${nDone}/${steps.length} done</span>
+        <h3>${next===-1?"You finished your path. Mashallah.":esc(steps[next].t)}</h3>
+        <p class="note">${esc(path.title)}${next===-1?"":" · "+esc(steps[next].time)}</p>
+        <a class="btn" href="#my-path">${next===-1?"Review my path":"Start this step"} <span class="arrow">→</span></a>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Options that fit your stage</h3><a class="link" href="#options">All <span class="arrow">→</span></a></div>
+        <div style="margin-top:6px">${path.options.map(id=>{const o=opt(id);return `<div class="opt-mini"><div><span class="tag">${esc(o.type)}</span><h4>${esc(o.name)}</h4><p>${esc(o.what)}</p></div><button class="link" data-how="${o.id}">How to start <span class="arrow">→</span></button></div>`}).join("")}</div>
+        <p class="note" style="margin-top:8px">Example options, not recommendations.</p>
+      </div>
+    </div>
+    <aside class="stack">
+      <div class="comm-card"><p class="eyebrow gold">Your community</p><h3>Next Circle near you</h3><p class="note">${esc(CIRCLES[0].host)}<br>${esc(CIRCLES[0].date)} · ${esc(CIRCLES[0].time)}</p><button class="btn full" style="margin-top:14px" id="home-seat">Save a seat</button><button class="link" style="margin-top:10px" id="home-ask">Ask a question anonymously <span class="arrow">→</span></button></div>
+      <div class="card"><p class="eyebrow">Another route</p><h3 style="margin:6px 0 6px">${esc(PATHS[altKey(k,answers)].title)}</h3><p>${esc(PATHS[altKey(k,answers)].why)}</p><button class="link" style="margin-top:10px" id="switch-path">Switch to this path <span class="arrow">→</span></button></div>
+      <button class="link" id="redo">Retake the check-in <span class="arrow">→</span></button>
+    </aside>
+  </div>`;
+  $("#home-seat").onclick = () => seatSheet(CIRCLES[0]);
+  $("#home-ask").onclick = () => askSheet();
+  $("#redo").onclick = () => { draft={pause:null,goals:[],style:null,have:null}; ciStep=0; location.hash="check-in"; };
+  $("#switch-path").onclick = () => { answers.override = altKey(k,answers); store.set("answers",answers); render(); };
+  document.querySelectorAll("[data-how]").forEach(b => b.onclick = () => howSheet(b.dataset.how));
+}
+
+/* path override */
+const _pathKey = pathKey;
+pathKey = a => a && a.override ? a.override : _pathKey(a);
+
+/* ================= MY PATH ================= */
+function renderPath(){
+  if(!answers){ needCheckIn("#v-my-path"); return; }
+  const k = pathKey(answers), path = PATHS[k], steps = path.steps;
+  const nDone = steps.filter((_,i)=>done[k+i]).length, pct = nDone/steps.length;
+  const C = 2*Math.PI*36;
+  $("#v-my-path").innerHTML = `
+    <p class="eyebrow">Step III · Know exactly how to start</p>
+    <div class="path-head">
+      <svg class="ring" viewBox="0 0 84 84"><circle cx="42" cy="42" r="36" fill="none" stroke="rgba(28,26,23,.12)" stroke-width="5"/><circle cx="42" cy="42" r="36" fill="none" stroke="#0F3B2E" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}" transform="rotate(-90 42 42)" style="transition:stroke-dashoffset .4s"/><text x="42" y="47" text-anchor="middle" font-family="Times New Roman,Times,serif" font-size="18" fill="#1C1A17">${nDone}/${steps.length}</text></svg>
+      <div><h1 class="page-title" style="margin:0">${esc(path.title)}</h1><p class="note" style="font-size:14px">${esc(path.why)}</p></div>
+    </div>
+    <div id="steps">${steps.map((s,i)=>`
+      <div class="step ${done[k+i]?"done":""} ${(!done[k+i] && steps.findIndex((_,j)=>!done[k+j])===i)?"open":""}" data-i="${i}">
+        <button class="step-h"><span class="check">${done[k+i]?"✓":""}</span><span><span class="step-t">${esc(s.t)}</span><br><span class="time">${esc(s.time)}</span></span><span class="arrow" style="color:var(--muted)">⌄</span></button>
+        <div class="step-b"><p>${s.d}</p>${s.need?`<p class="need"><b>What you’ll need:</b> ${esc(s.need)}</p>`:""}
+          <div class="actions"><button class="btn" style="min-height:42px" data-done="${i}">${done[k+i]?"Mark as not done":"Mark as done"}</button><button class="link" data-stuck="${esc(s.t)}">Stuck here? Ask the community <span class="arrow">→</span></button></div></div>
+      </div>`).join("")}</div>
+    <div class="card" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap"><div><p class="eyebrow gold">Your community</p><p style="color:var(--ink)">Prefer to do this step with other women?</p></div><a class="btn ghost" href="#community">See Circles <span class="arrow">→</span></a></div>`;
+  $("#steps").querySelectorAll(".step-h").forEach(h => h.onclick = () => h.parentElement.classList.toggle("open"));
+  $("#steps").querySelectorAll("[data-done]").forEach(b => b.onclick = () => { const key=k+b.dataset.done; done[key]=!done[key]; store.set("done",done); const st=store.get("stepstats",{}); if(done[key]) st[k+":"+b.dataset.done]=(st[k+":"+b.dataset.done]||0)+1; store.set("stepstats",st); renderPath(); });
+  $("#steps").querySelectorAll("[data-stuck]").forEach(b => b.onclick = () => askSheet(b.dataset.stuck));
+  bindTerms($("#v-my-path"));
+}
+
+/* ================= OPTIONS ================= */
+const FILTERS = [{k:"handsoff",l:"Hands-off"},{k:"handson",l:"Hands-on"},{k:"retirement",l:"Retirement"},{k:"brokerage",l:"Works with my brokerage"},{k:"bank",l:"Banking"}];
+function renderOptions(){
+  const hasStage = !!answers;
+  $("#filters").innerHTML = (hasStage?`<button class="chip ${filters.stage?"on":""}" data-f="stage">My stage</button>`:"") + FILTERS.map(f=>`<button class="chip ${filters.f===f.k?"on":""}" data-f="${f.k}">${f.l}</button>`).join("");
+  $("#filters").querySelectorAll(".chip").forEach(c => c.onclick = () => { const f=c.dataset.f; if(f==="stage") filters.stage=!filters.stage; else filters.f = filters.f===f?null:f; renderOptions(); });
+  let list = OPTIONS.slice();
+  if(hasStage && filters.stage) list = list.filter(o => o.stages.includes(answers.pause));
+  if(filters.f) list = list.filter(o => o.tags.includes(filters.f));
+  $("#opt-grid").innerHTML = list.length ? list.map(o=>`
+    <article class="card opt">
+      <span class="tag">${esc(o.type)}</span>
+      <h3>${esc(o.name)}</h3>
+      <p>${esc(o.what)}</p>
+      <div class="meta"><span><b>Good if</b> ${esc(o.good)}</span><span><b>You’ll need</b> ${esc(o.need)}</span></div>
+      <div class="row-act"><label class="cmp"><input type="checkbox" data-cmp="${o.id}" ${compare.includes(o.id)?"checked":""}> Compare</label><button class="link" data-how="${o.id}">How to start <span class="arrow">→</span></button></div>
+    </article>`).join("") : `<p class="note">No options match these filters. Try turning one off.</p>`;
+  $("#opt-grid").querySelectorAll("[data-how]").forEach(b => b.onclick = () => howSheet(b.dataset.how));
+  $("#opt-grid").querySelectorAll("[data-cmp]").forEach(c => c.onchange = () => {
+    const id=c.dataset.cmp;
+    if(c.checked){ if(compare.length>=2){ c.checked=false; return; } compare.push(id); } else compare = compare.filter(x=>x!==id);
+    updateCmpBar();
+  });
+  updateCmpBar();
+}
+function updateCmpBar(){
+  const show = compare.length>0 && location.hash.replace("#","")==="options";
+  $("#cmp-bar").classList.toggle("show", show);
+  $("#cmp-count").textContent = compare.length===1 ? "Pick one more to compare" : "2 selected";
+  $("#cmp-go").style.display = compare.length===2 ? "inline-flex" : "none";
+}
+$("#cmp-go").onclick = () => {
+  const [a,b] = compare.map(opt);
+  const rows = [["What it is","what"],["Good if","good"],["Hands-on or off",o=>o.hands==="on"?"Hands-on":"Hands-off"],["Account types","acct"],["You’ll need","need"]];
+  openSheet(`<p class="eyebrow">Compare</p><h3>Side by side</h3><table class="cmp-table"><thead><tr><td></td><td>${esc(a.name)}</td><td>${esc(b.name)}</td></tr></thead><tbody>${rows.map(([l,f])=>`<tr><th>${l}</th><td>${esc(typeof f==="function"?f(a):a[f])}</td><td>${esc(typeof f==="function"?f(b):b[f])}</td></tr>`).join("")}</tbody></table><p class="note" style="margin-top:12px">Example options, not recommendations. Confirm fees and terms with each provider.</p>`);
+};
+function howSheet(id){
+  const o = opt(id);
+  const generic = {
+    "Managed portfolio":["Download the app or visit the site","Answer the goal and risk questions","Verify your identity (ID, SSN)","Link your bank and make a first deposit","Turn on a monthly auto-deposit"],
+    "Self-directed app":["Download the app","Verify your identity (ID, SSN)","Link your bank and fund the account","Search an investment; only screened options can be bought","Set a recurring purchase"],
+    "Self-directed + screener":["Download the app","Search any stock or fund to see its compliance status","Optionally link your existing brokerage to check what you own","Open an investing account if you want to invest in-app"],
+    "Fund / ETF":["Log into any brokerage account","Search the ticker","Read what it holds","Buy a share or a fractional amount","Track the yearly purification figure"],
+    "Screener":["Download the app","Search stocks or funds you own or are considering","Read the compliance breakdown","Use it alongside your brokerage"],
+    "Retirement / 401(k)":["Check your current 401(k) fund menu","Ask HR whether a halal fund can be added","Or explore rolling over old plans into a halal IRA"],
+    "Bank product":["Visit the bank’s site","Choose checking, savings or a CD","Verify your identity (ID, SSN)","Fund it from your current bank"]
+  }[o.type] || [];
+  openSheet(`<span class="tag">${esc(o.type)}</span><h3>How to start with ${esc(o.name)}</h3><p style="color:var(--muted)">${esc(o.what)}</p><ol style="margin:16px 0 0 20px;display:grid;gap:8px">${generic.map(s=>`<li>${esc(s)}</li>`).join("")}</ol><p class="note" style="margin-top:14px">General steps, not advice. Confirm current requirements on ${esc(o.name)}’s own site.</p><div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;align-items:center"><button class="btn" onclick="closeSheet();askSheet('${esc(o.name)}')">Ask the community about this</button></div>`);
+}
+
+/* ================= COMMUNITY ================= */
+function renderCommunity(){
+  $("#circ-grid").innerHTML = CIRCLES.map((c,i)=>`<article class="circ"><span class="eyebrow">${esc(c.date)} · ${esc(c.time)}</span><h3>${esc(c.host)}</h3><p class="note">${esc(c.city)} · Women only</p><p class="note">${c.seats} seats</p><button class="btn" style="margin-top:10px" data-seat="${i}">Save a seat</button></article>`).join("");
+  $("#circ-grid").querySelectorAll("[data-seat]").forEach(b => b.onclick = () => seatSheet(CIRCLES[+b.dataset.seat]));
+  let askTag = ASK_TAGS[0];
+  $("#ask-tags").innerHTML = ASK_TAGS.map((t,i)=>`<button type="button" class="chip ${i===0?"on":""}" data-t="${esc(t)}">${esc(t)}</button>`).join("");
+  $("#ask-tags").querySelectorAll(".chip").forEach(c => c.onclick = () => { askTag=c.dataset.t; $("#ask-tags").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c)); });
+  $("#ask-form").onsubmit = e => { e.preventDefault(); logQuestion(askTag); $("#ask-text").value=""; $("#ask-ok").style.display="block"; };
+  $("#qa-list").innerHTML = `<p class="eyebrow" style="margin-bottom:6px">Answered at recent Circles <span class="sample">Sample</span></p>` + SAMPLE_QA.map(x=>`<div class="qa"><button>${esc(x.q)}<span class="gold">+</span></button><p class="a">${esc(x.a)}</p></div>`).join("");
+  $("#qa-list").querySelectorAll(".qa button").forEach(b => b.onclick = () => b.parentElement.classList.toggle("open"));
+  $("#join-circle").onclick = () => openSheet(`<p class="eyebrow gold">Nisab Circle · $5 / month</p><h3>Join the community.</h3><form class="form" id="jform"><input class="input" placeholder="First name" required><input class="input" placeholder="Email or phone" required><button class="btn" type="submit">Join <span class="arrow">→</span></button></form><p class="note" style="margin-top:10px">Prototype: no payment is taken.</p>`) || ($("#jform").onsubmit = e => { e.preventDefault(); $("#sheet-body").innerHTML = `<p class="eyebrow gold">Welcome</p><h3>You’re on the list.</h3><p style="color:var(--muted)">Prototype: no payment was taken.</p><button class="btn" style="margin-top:16px" onclick="closeSheet()">Done</button>`; });
+  $("#partner-grid").innerHTML = PARTNERS.map(p=>`<div class="partner"><span class="eyebrow">${esc(p.place)}</span><h4 style="margin-top:6px">${esc(p.name)}</h4></div>`).join("");
+}
+
+/* ================= INSIGHTS ================= */
+function renderInsights(){
+  const SAMPLE_STAGE=[4,9,6,3,5], SAMPLE_PATH={managed:7,self:3,fund:9,brokerage:6,retirement:2,family:3};
+  const log = store.get("log",[]);
+  const stage = SAMPLE_STAGE.slice(); log.forEach(l=>stage[l.pause]++);
+  const paths = {...SAMPLE_PATH}; log.forEach(l=>paths[l.path]=(paths[l.path]||0)+1);
+  const qs = {"Getting started":5,"Funding":4,"Is it halal?":7,"Family & money":6,"Retirement":2}; const lq=store.get("questions",{}); Object.keys(lq).forEach(k=>qs[k]=(qs[k]||0)+lq[k]);
+  const drop = [27,21,18,9,6,4];
+  const seats = 14 + store.get("seats",0);
+  const bars = (title,entries,note) => { const m=Math.max(...entries.map(e=>e[1]),1); return `<div class="card"><h3 style="margin-bottom:14px">${title} <span class="sample">Sample</span></h3><div class="bars">${entries.map(([l,v])=>`<div class="bar"><span>${esc(l)}</span><span class="track"><span class="fill" style="width:${(v/m)*100}%;display:block"></span></span><span class="v">${v}</span></div>`).join("")}</div>${note?`<p class="note" style="margin-top:12px">${note}</p>`:""}</div>`; };
+  $("#ins-grid").innerHTML =
+    bars("Where women stopped", PAUSES.map((p,i)=>[p.stage,stage[i]]), "Placeholder numbers. Replace with your real Circle data.") +
+    bars("Checklist drop-off (all paths)", ["Step 1","Step 2","Step 3","Step 4","Step 5","Step 6"].map((s,i)=>[s,drop[i]]), "Placeholder numbers. Replace with real checklist data.") +
+    bars("Paths assigned", Object.entries(paths).map(([k,v])=>[PATHS[k].title,v])) +
+    bars("Anonymous questions by topic", Object.entries(qs)) +
+    `<div class="card"><h3>Circle seat requests <span class="sample">Sample</span></h3><p class="serif" style="font-size:56px;color:var(--emerald);line-height:1.1;margin-top:8px">${seats}</p><p class="note">Across partner masjids and MSAs.</p></div>` +
+    `<div class="card"><h3>Check-ins on this device</h3><p class="serif" style="font-size:56px;color:var(--emerald);line-height:1.1;margin-top:8px">${log.length}</p><p class="note">Real responses captured in this browser during testing.</p></div>`;
+}
+
+/* ================= ROUTER ================= */
+const APP_VIEWS = ["check-in","home","my-path","options","community","partners","insights"];
+function render(){
+  const h = location.hash.replace("#","") || "top";
+  const isApp = APP_VIEWS.includes(h);
+  $("#v-landing").classList.toggle("active", !isApp);
+  $("#app").style.display = isApp ? "block" : "none";
+  document.querySelectorAll("#app .view").forEach(v => v.classList.toggle("active", v.id==="v-"+h));
+  document.querySelectorAll("[data-tab]").forEach(t => t.classList.toggle("on", t.dataset.tab===h));
+  $("#bottom-tabs").style.display = (h==="check-in") ? "none" : "";
+  if(h==="check-in") renderCheckIn();
+  if(h==="home") renderHome();
+  if(h==="my-path") renderPath();
+  if(h==="options") renderOptions();
+  if(h==="community") renderCommunity();
+  if(h==="insights") renderInsights();
+  updateCmpBar();
+  closeSheet();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", render);
+renderLanding();
+document.querySelectorAll("a[href='#check-in']").forEach(a => a.addEventListener("click", () => { draft={pause:null,goals:[],style:null,have:null}; ciStep=0; }));
+render();
+</script>
+</body>
+</html>
